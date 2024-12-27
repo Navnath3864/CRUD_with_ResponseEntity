@@ -2,7 +2,6 @@ package com.cjc.controller;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,9 +53,9 @@ public class StudentController {
 	}
 	
 	@DeleteMapping("/deletestudent/{rollno}")
-	public ResponseEntity<Student> deleteStudentByRollno(@PathVariable int rollno) {
-		studentService.deleteStudent(rollno);
-		ResponseEntity<Student> re = new ResponseEntity<Student>(HttpStatus.OK);
+	public ResponseEntity<List<Student>> deleteStudentByRollno(@PathVariable int rollno) {
+		List<Student> ls=studentService.deleteStudent(rollno);
+		ResponseEntity<List<Student>> re = new ResponseEntity<List<Student>>(ls,HttpStatus.ACCEPTED);
 		return re;
 
 	}

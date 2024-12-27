@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 import com.cjc.model.Student;
 import com.cjc.repo.StudentRepo;
 import com.cjc.service.StudentService;
+
 @Service
-public class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl implements StudentService {
 	@Autowired
 	StudentRepo sr;
 
@@ -22,12 +23,12 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public Student getStudent(int rollno) {
-		Optional<Student> s= sr.findById(rollno);
-		if(s!=null) {
+		Optional<Student> s = sr.findById(rollno);
+		if (s != null) {
 			return s.get();
 		}
 		return null;
-		
+
 	}
 
 	@Override
@@ -38,8 +39,8 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public Student updateStudent(Student s) {
-		Optional<Student> stu=sr.findById(s.getRollno());
-		if(!stu.isEmpty()) {
+		Optional<Student> stu = sr.findById(s.getRollno());
+		if (!stu.isEmpty()) {
 			stu.get().setName(s.getName());
 			stu.get().setCourse(s.getCourse());
 			sr.save(stu.get());
@@ -49,8 +50,10 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public void deleteStudent(int rollno) {
+	public List<Student> deleteStudent(int rollno) {
 		sr.deleteById(rollno);
+		List<Student> ls = sr.findAll();
+		return ls;
 	}
 
 }
